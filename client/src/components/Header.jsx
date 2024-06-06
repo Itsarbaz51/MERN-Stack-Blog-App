@@ -13,7 +13,7 @@ function Header() {
             </h3>
           </div>
           <div className="hidden sm:flex">
-            <ul className="flex gap-8  rounded-sm">
+            <ul className="flex md:gap-8  rounded-sm sm:gap-3">
               <li>
                 <Link to="/profile/arbaz">Arbaz</Link>
               </li>
