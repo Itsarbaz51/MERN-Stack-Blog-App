@@ -1,8 +1,10 @@
 import React from 'react'
-
+// import AuthorPost from '../components/AuthorPost'
 function AuthorPost() {
   return (
-    <div>AuthorPost</div>
+    <div>
+      authors 
+    </div>
   )
 }
 
