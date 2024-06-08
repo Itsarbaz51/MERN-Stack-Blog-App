@@ -1,10 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import AuthorPost from '../components/AuthorPost.jsx'
+import PostAuthor from './PostAuthor.jsx'
 
-function PostItem({postId, category, title, description, thumbnail}) {
-  const shortdescription = description.length > 145 ? description.substr(0, 145) + '...' : description;
-  const shortTitle = title.length > 7 ? title.substr(0, 7) + '...' : title;
+function PostItem({postId, category, title, description, thumbnail, autherId}) {
+  const shortdescription = description.length > 145 ? description.slice(0, 145) + '...' : description;
+  const shortTitle = title.length > 7 ? title.slice(0, 15) + '...' : title;
 
   return (
     <article className='bg-white text-black p-5 m-4 h-[450px] w-[350px] rounded-2xl hover:shadow-2xl  hover:scale-105 duration-300'>
@@ -17,8 +17,8 @@ function PostItem({postId, category, title, description, thumbnail}) {
             </Link>
             <p className='text-[10px] text-gray-500'>{shortdescription}</p>
             <div className='flex justify-between '>
-              <AuthorPost/>
-              <Link to={`/posts/categories/${category}`} className='bg-gray-200 hover:bg-gray-300 text-gray-400 p-1 mt-6 mb-2 rounded-md text-sm'>{category}</Link>
+              <PostAuthor/>
+              <Link to={`/posts/categories/${category}`} className='bg-gray-300 hover:bg-black text-gray-500 px-1 p-1 mt-6 mb-2 rounded-md text-sm'>{category}</Link>
             </div>
         </div>
     </article>

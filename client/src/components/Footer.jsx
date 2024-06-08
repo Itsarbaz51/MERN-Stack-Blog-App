@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer>
-      <div className="bg-slate-400 p-4 m-3 rounded-3xl">
-      <ul className="text-center p-2  gap-3 xl:flex xl:justify-between ">
+      <div className="bg-slate-400 p-4 m-3 rounded-3xl ">
+      <ul className="text-center p-2 flex flex-wrap justify-evenly gap-3 ">
         <li className="hover:bg-slate-200 rounded hover:inline-block p-2">
           <Link to="/posts/categories/Agriclture">Agriclture</Link>
         </li>

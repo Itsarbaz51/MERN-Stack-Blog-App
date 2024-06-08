@@ -9,7 +9,7 @@ import Login from './pages/Login'
 import Logout from './pages/Logout'
 import CreatePost from './pages/CreatePost'
 import CategoryPosts from './pages/CategoryPosts'
-import AuthorPost from './pages/AuthorPost'
+import AuthorPosts from './pages/AuthorPosts'
 import Authors from './pages/Authors'
 import Dashboard from './pages/Dashboard'
 import DeletePost from './pages/DeletePost'
@@ -30,7 +30,7 @@ const router = createBrowserRouter(
       <Route path='logout' element={<Logout/>} />
       <Route path='myPost/:id' element={<Dashboard/>} />
       <Route path='post/:id/delete' element={<DeletePost/>} />
-      <Route path='authorPost/user/:id' element={<AuthorPost/>} />
+      <Route path='posts/users/:id' element={<AuthorPosts/>} />
       <Route path='authors' element={<Authors/>} />
       <Route path='posts/categories/:category' element={<CategoryPosts/>} />
       <Route path='post/:id/edit' element={<EditPost/>} />

@@ -33,7 +33,7 @@ function Header() {
           <button
             className="sm:hidden hover:bg-slate-100 hover:rounded"
           >
-            <IoMenuSharp /> 
+                            <IoMenuSharp /> 
           </button>
         </div>
       </nav>

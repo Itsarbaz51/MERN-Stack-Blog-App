@@ -6,12 +6,13 @@ function Posts() {
   const [posts, setPosts] = useState(Dumy_Posts);
 
   return (
-    <div className=" text-white p-3 m-3 flex flex-wrap justify-evenly">
+    <section>
+      { posts.length > 0 ?  <div className=" text-white p-3 m-3 flex flex-wrap justify-evenly">
       {posts.map(
         ({ id, thumbnail, category, title, description, autherId }) => (
           <PostItem
             key={id}
-            posId={id}
+            postId={id}
             thumbnail={thumbnail}
             category={category}
             title={title}
@@ -20,7 +21,8 @@ function Posts() {
           />
         )
       )}
-    </div>
+    </div> : <h2 className=" text-center p-6 md text-[2rem] mb-[3rem] pt-10">No Post Founds</h2> }
+    </section>
   );
 }
 
