@@ -8,7 +8,7 @@ export const Dumy_Posts = [
     {
       id: 1,
       thumbnail: thumbnail1,
-      title: "Post 1",
+      title: "Post one, This is check",
       category: "science",
       description: "Lorem, lorem ipsum dolor sit amet consectetur adipisicing elit.  ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. ipsum dolor sit amet consectetur adipisicing elit. Commodi sit vitae eligendi eveniet voluptates atque, minima quos iure exercitationem esse veniam magni voluptatum, praesentium ad ab nisi, repudiandae voluptatem pariatur",
       authorId: 1,
