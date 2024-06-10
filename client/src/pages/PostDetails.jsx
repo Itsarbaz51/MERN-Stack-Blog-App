@@ -1,4 +1,3 @@
-import React from "react";
 import AuthorePost from "../components/PostAuthor";
 import { Link } from "react-router-dom";
 import Thumbnail from "../images/thumbnail.jpg";
