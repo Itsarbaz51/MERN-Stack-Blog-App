@@ -18,7 +18,7 @@ function PostItem({postId, category, title, description, thumbnail, autherId}) {
             <p className='text-[10px] text-gray-500'>{shortdescription}</p>
             <div className='flex justify-between '>
               <PostAuthor/>
-              <Link to={`/posts/categories/${category}`} className='bg-gray-300 hover:bg-black text-gray-500 px-1 p-1 mt-6 mb-2 rounded-md text-sm'>{category}</Link>
+              <Link to={`/posts/categories/${category}`} className=' hover:bg-black hover:text-white text-black px-1 p-1 mt-6 mb-2 rounded-md text-sm'>{category}</Link>
             </div>
         </div>
     </article>
