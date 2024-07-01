@@ -1,4 +1,4 @@
-import app from "./app.js";
+import {app} from "./app.js";
 import connectDB from "./db/db.index.js";
 import dotenv from 'dotenv'
 
@@ -6,7 +6,8 @@ dotenv.config({
     path: './.env'
 })
 
-connectDB().
+connectDB()
+.
 then(() => {
     app.on('error', (error) => {
         console.log('MongoDB connection error',error.message);
@@ -20,10 +21,3 @@ catch(
         console.log('mongoDB error !!',error.message);
     })
 )
-
-
-
-
-
-
-export default app
