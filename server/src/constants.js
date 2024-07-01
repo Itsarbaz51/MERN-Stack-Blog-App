@@ -1,3 +1,1 @@
-const DB_NAME = 'BlogApp'
-
-export default DB_NAME
+export const DB_NAME = 'BlogApp'
