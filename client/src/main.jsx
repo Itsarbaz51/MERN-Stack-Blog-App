@@ -17,12 +17,21 @@ import Home from './pages/Home'
 import EditPost from './pages/EditPost'
 import PostDetails from './pages/PostDetails'
 import UserProfile from './pages/UserProfile'
+// import { UserProvider } from './context/userContext'
+import {store} from './app/store.js'
+import { Provider } from 'react-redux'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route 
     path='/'
-    element={<Layout/>}
+    element={
+      // <UserProvider>
+      <Provider store={store}>
+        <Layout/>
+      </Provider>
+        // </UserProvider>
+      }  
     errorElement={<ErrorPage />}>
       <Route index={true} element={<Home/>} />
       <Route path='register' element={<Register/>} />
