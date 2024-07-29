@@ -21,6 +21,7 @@ function Register() {
     setUserdata("");
   };
   
+  
   useEffect(() => {
     registerUser?.message ? navigate('/login') : null
   });
