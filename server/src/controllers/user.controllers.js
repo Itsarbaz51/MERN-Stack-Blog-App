@@ -270,5 +270,5 @@ export {
   author,
   authors,
   changeAvatar,
-  editUser,
+  editUser
 };
