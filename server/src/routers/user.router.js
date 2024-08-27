@@ -6,6 +6,7 @@ import {
   authors,
   changeAvatar,
   editUser,
+  userLogout,
 } from "../controllers/user.controllers.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/Auth.middleware.js";
@@ -14,7 +15,8 @@ const router = Router();
 
 router.route("/register").post(userRegister);
 router.route("/login").post(userlogin);
-router.route("/").get(verifyJWT, author);
+router.route("/logout").post(verifyJWT, userLogout);
+router.route("/:id").get(author);
 router.route("/").get(authors);
 router
   .route("/changeAvatar")
