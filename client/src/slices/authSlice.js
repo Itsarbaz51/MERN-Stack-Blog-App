@@ -2,9 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseURL } from "../constants.js";
 
+// Error handling 
+function parserHtmlError(html){
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html')
+  const errorElement = doc.querySelector('pre') || doc.querySelector('body');
+  return errorElement ? errorElement.textContent : 'An error Accurred.';
+}
 const initialState = {
   registerUser: {},
-  user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
+  loginUser: localStorage.getItem('loginUser') ? JSON.parse(localStorage.getItem('loginUser')) : null,
   isLoading: false,
   error: null,
 };
@@ -27,10 +34,6 @@ const authSlice = createSlice({
       state.isLoading = false,
       state.error = action.payload
     },
-    registerFailRefresh: (state) => {
-      state.isLoading = false,
-      state.error = null
-    },
 
     // Login
     loginRequest: (state) => {
@@ -38,8 +41,8 @@ const authSlice = createSlice({
     },
     loginSuccess: (state, action) => {
       state.isLoading = false;
-      state.user = action.payload;
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      state.loginUser = action.payload;
+      localStorage.setItem('loginUser', JSON.stringify(action.payload));
     },
     loginFail: (state, action) => {
       (state.isLoading = false), (state.error = action.payload);
@@ -51,8 +54,8 @@ const authSlice = createSlice({
     },
     logoutSuccess: (state) => {
       state.isLoading = false;
-      state.user = null;
-      localStorage.removeItem('user');
+      state.loginUser = null;
+      localStorage.removeItem('loginUser');
     },
     logoutFail: (state, action) => {
       (state.isLoading = false), (state.error = action.payload);
@@ -75,6 +78,7 @@ export const {
 
 export default authSlice.reducer;
 
+
 // Register
 export const register = (userData) => (
   async (dispatch) => {
@@ -83,8 +87,11 @@ export const register = (userData) => (
       const response = await axios.post(`${baseURL}/users/register`, userData)
       dispatch(registerSuccess(response.data))
     } catch (err) {
-      // console.log("err", err);
-      dispatch(registerFail(err.response.data))
+      if(err.response && err.response.data) {
+        const htmlError = err.response.data;
+        const errorMessage = parserHtmlError(htmlError)
+        dispatch(registerFail(errorMessage))
+      }
     }
   }
 )
@@ -96,19 +103,26 @@ export const login = (userData) => async (dispatch) => {
     const response = await axios.post(`${baseURL}/users/login`, userData);
     dispatch(loginSuccess(response.data));
   } catch (err) {
-    // console.log("err", err);
-    dispatch(loginFail(err.response.data));
+    if (err.response && err.response.data) {
+      const htmlError = err.response.data
+      const errorMessage = parserHtmlError(htmlError)
+      dispatch(loginFail(errorMessage));
+    }
   }
 };
 
 // Logout
-export const logout = () => async (dispatch) => {
+export const logout = (userId, accToken) => async (dispatch) => {
   dispatch(logoutRequest());
   try {
-    const response = await axios.post(`${baseURL}/users/logout`);
+    const response = await axios.post(`${baseURL}/users/logout`,userId,
+      {withCredentials: true, headers: {Authorization: `Bearer ${accToken}`}});
     dispatch(logoutSuccess(response.data));
   } catch (err) {
-    // console.log(err);
-    dispatch(logoutFail(err.response.data));
+    if (err.response && err.response.data) {
+      const htmlError = err.response.data
+      const errorMessage = parserHtmlError(htmlError)
+      dispatch(logoutFail(errorMessage));
+    }
   }
 };
