@@ -12,7 +12,7 @@ function Register() {
   });
 
   const dispatch = useDispatch();
-  const { registerUser, error} = useSelector(state => state.auth)
+  const { registerUser,isLoading, error} = useSelector(state => state.auth)
   const navigate = useNavigate();
 
   const handleSubmitRegister = async (e) => {
@@ -26,9 +26,14 @@ function Register() {
     registerUser?.message ? navigate('/login') : null
   });
   
-  if (registerUser?.data) {
-    alert("Register Success.");
+  if (isLoading) {
+    return (
+      <section className="h-screen w-screen flex justify-center items-center">
+          <h1 className="text-3xl">Loading...</h1>
+      </section>
+    )
   }
+
   const changeInputHandle = (e) => {
     setUserdata((prevState) => {
       return {
@@ -43,9 +48,9 @@ function Register() {
       <div className="bg-slate-100 rounded center md:w-[500px] my-44 p-4 h-fit min-w-fit ">
         <h1 className="font-bold ms-2 ">Sign Up</h1>
         <form className="flex flex-col p-2" onSubmit={handleSubmitRegister}>
-          { error?.error &&
+          { error &&
             <p className="bg-red-500 rounded mb-3 text-[15px] p-1 sm:text-xs text-white">
-              {error?.error}
+              {error}
             </p>
           }
           <input
