@@ -122,7 +122,7 @@ const userlogin = asyncHandler(async (req, res) => {
 });
 
 const userLogout = asyncHandler(async (req, res) => {
-  console.log(req.user._id);
+  // console.log(req.user._id);
   await User.findByIdAndUpdate(
     req.user?._id,
     {
@@ -141,8 +141,8 @@ const userLogout = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .cookie("accessToken: ", options)
-    .cookie("refreshToken: ", options)
+    .cookie("accessToken:", options)
+    .cookie("refreshToken:", options)
     .json(new ApiResponse(200, {}, "User successfully logout."));
 });
 
@@ -176,15 +176,15 @@ const changeAvatar = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Avatar is required.")
   }
 
-  const userId = await User.findById(req.user?._id);
-  if (!userId) {
+  const user = await User.findById(req.user._id);
+  if (!user) {
     throw new ApiError(404, "User not Found.")
   }
   
 
-  if (req.file?.avatar) {
-    const avatarPathUrl = userId.avatar;
-    const avatarSplit = avatarPathUrl.split("/" || "-" || "_" || ".");
+  if (user?.avatar) {
+    const avatarPathUrl = user.avatar;
+    const avatarSplit = avatarPathUrl.split("/");
     const avatarName = avatarSplit[avatarSplit.length - 1];
     const avatarNameSplit = avatarName.split(".")[0];
     await cloudinary.uploader.destroy(avatarNameSplit);
@@ -196,8 +196,8 @@ const changeAvatar = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Error while uploading on avatar.")
   }
 
-  const user = await User.findByIdAndUpdate(
-    userId,
+  const newUser = await User.findByIdAndUpdate(
+    req.user._id,
     {
       $set: {
         avatar: avatar.url,
@@ -208,33 +208,28 @@ const changeAvatar = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new ApiResponse(200, user, "Avatar Change Successfully."));
+    .json(new ApiResponse(200, newUser, "Avatar Change Successfully."));
 });
 
 const editUser = asyncHandler(async (req, res) => {
   const { fullName, email, currentPassword, newPassword, confirmPassword } =
     req.body;
 
-  if (
-    [!fullName || !email || !currentPassword || !newPassword].some((field) => field?.trim() == "")
-  ) {
+  if (!fullName || !email || !currentPassword || !newPassword || !confirmPassword) {
     throw new ApiError(401, "All fields are required.")
   }
 
-  const user = await User.findById(req.user?._id);
-
+  const user = await User.findById(req.user._id);
   if (!user) {
     throw new ApiError(401, "User not found.")
   }
 
   const emailExsits = await User.findOne({ email });
-  // console.log(emailExsits);
-  if (emailExsits && emailExsits._id != req.user?._id) {
+  if (emailExsits && emailExsits._id != req.user._id) {
     throw new ApiError(401, "Email already Exist.")
   }
 
   const checkPasswordValidOrNot = await user.comeparePassword(currentPassword);
-  // console.log(checkPasswordValidOrNot);
   if (!checkPasswordValidOrNot) {
     throw new ApiError(401, "Invaild Password.")
   }
@@ -247,7 +242,7 @@ const editUser = asyncHandler(async (req, res) => {
   }
 
   const newUser = await User.findByIdAndUpdate(
-    req.user?._id,
+    req.user._id,
     {
       $set: {
         fullName,
