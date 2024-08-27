@@ -12,25 +12,26 @@ import CategoryPosts from './pages/CategoryPosts'
 import AuthorPosts from './pages/AuthorPosts'
 import Authors from './pages/Authors'
 import Dashboard from './pages/Dashboard'
-import DeletePost from './pages/DeletePost'
+// import DeletePost from './pages/DeletePost'
 import Home from './pages/Home'
 import EditPost from './pages/EditPost'
 import PostDetails from './pages/PostDetails'
 import UserProfile from './pages/UserProfile'
-// import { UserProvider } from './context/userContext'
+
 import {store} from './app/store.js'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route 
     path='/'
     element={
-      // <UserProvider>
-      <Provider store={store}>
-        <Layout/>
-      </Provider>
-        // </UserProvider>
+      // <PersistGate persistor={persistor}>
+        <Provider store={store}>
+          <Layout/>
+        </Provider>
+      // </PersistGate>
       }  
     errorElement={<ErrorPage />}>
       <Route index={true} element={<Home/>} />
@@ -38,7 +39,6 @@ const router = createBrowserRouter(
       <Route path='login' element={<Login/>} />
       <Route path='logout' element={<Logout/>} />
       <Route path='myPost/:id' element={<Dashboard/>} />
-      <Route path='post/:id/delete' element={<DeletePost/>} />
       <Route path='posts/users/:id' element={<AuthorPosts/>} />
       <Route path='authors' element={<Authors/>} />
       <Route path='posts/categories/:category' element={<CategoryPosts/>} />
